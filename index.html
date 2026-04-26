@@ -3,65 +3,440 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DARKDMTR — Coming Soon</title>
+  <title>DARKDMTR — CHAOS GARDEN, Vol. 1</title>
+  <meta name="description" content="DARKDMTR — CHAOS GARDEN, Vol. 1" />
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    :root {
+      --bg: #060606;
+      --panel: #0b0b0b;
+      --line: #1f1f1f;
+      --line-2: #2b2b2b;
+      --text: #e8e3da;
+      --muted: #8a847b;
+      --faint: #56514b;
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --space-10: 40px;
+      --space-12: 48px;
+      --text-xs: 12px;
+      --text-sm: 14px;
+      --text-base: 16px;
+      --text-lg: clamp(24px, 4vw, 34px);
+      --text-xl: clamp(32px, 7vw, 58px);
     }
 
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
     body {
+      margin: 0;
       min-height: 100vh;
+      background:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px),
+        var(--bg);
+      background-size: 22px 22px, 22px 22px, auto;
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      letter-spacing: 0.02em;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img, audio { display: block; width: 100%; }
+    button, a { min-height: 44px; }
+
+    .page {
+      width: min(100%, 980px);
+      margin: 0 auto;
+      padding: var(--space-5) var(--space-4) var(--space-12);
+    }
+
+    .topbar,
+    .footer {
       display: flex;
       align-items: center;
-      justify-content: center;
-      background: #050505;
-      color: #f1ece6;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 24px;
-    }
-
-    .box {
-      max-width: 600px;
-    }
-
-    .name {
-      font-size: 14px;
-      letter-spacing: 6px;
+      justify-content: space-between;
+      gap: var(--space-3);
+      padding: var(--space-2) 0 var(--space-4);
+      font-size: var(--text-xs);
       text-transform: uppercase;
-      color: #8d8780;
-      margin-bottom: 20px;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+    }
+
+    .brand {
+      color: var(--text);
+      font-weight: 700;
+      letter-spacing: 0.22em;
+    }
+
+    .ig-link {
+      padding: 0 var(--space-3);
+      border: 1px solid var(--line-2);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: var(--space-6);
+      align-items: start;
+      padding: var(--space-4) 0 var(--space-8);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .cover {
+      aspect-ratio: 1 / 1;
+      border: 1px solid var(--line-2);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06), transparent 25%),
+        linear-gradient(180deg, #090909, #131313 55%, #0a0a0a);
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cover-fallback {
+      height: 100%;
+      padding: var(--space-4);
+      display: flex;
+      align-items: end;
+    }
+
+    .cover-text {
+      font-size: clamp(28px, 6vw, 48px);
+      line-height: 0.88;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      max-width: 5ch;
+    }
+
+    .hero-copy {
+      display: grid;
+      gap: var(--space-4);
+      align-content: start;
     }
 
     h1 {
-      font-size: clamp(40px, 10vw, 90px);
-      line-height: 0.95;
-      margin-bottom: 20px;
+      margin: 0;
+      font-size: var(--text-xl);
+      line-height: 0.92;
+      font-weight: 700;
       text-transform: uppercase;
+      letter-spacing: 0.06em;
     }
 
-    .line {
-      width: 120px;
-      height: 1px;
-      background: #7a0d14;
-      margin: 0 auto 20px;
+    .meta {
+      font-size: var(--text-xs);
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
     }
 
-    p {
-      font-size: 18px;
-      color: #aaa39b;
-      line-height: 1.6;
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 var(--space-4);
+      border: 1px solid var(--text);
+      background: var(--text);
+      color: var(--bg);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+
+    .btn.alt {
+      background: transparent;
+      color: var(--text);
+      border-color: var(--line-2);
+    }
+
+    .track-section {
+      padding-top: var(--space-6);
+    }
+
+    .track-header {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-3);
+      margin-bottom: var(--space-3);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+    }
+
+    .tracklist {
+      border-top: 1px solid var(--line);
+    }
+
+    .track {
+      display: grid;
+      grid-template-columns: 52px minmax(0, 1fr) 110px;
+      gap: var(--space-4);
+      padding: var(--space-4) 0;
+      border-bottom: 1px solid var(--line);
+      align-items: start;
+    }
+
+    .num {
+      color: var(--faint);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding-top: 6px;
+    }
+
+    .track-main {
+      display: grid;
+      gap: var(--space-3);
+      min-width: 0;
+    }
+
+    .track-title {
+      font-size: var(--text-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      word-break: break-word;
+    }
+
+    .audio-shell {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: var(--space-2);
+    }
+
+    audio {
+      height: 34px;
+      filter: grayscale(1) contrast(1.05);
+    }
+
+    .track-actions {
+      display: grid;
+      gap: var(--space-2);
+    }
+
+    .track-link {
+      min-height: 36px;
+      border: 1px solid var(--line-2);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 var(--space-3);
+      font-size: var(--text-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+    }
+
+    .footer {
+      margin-top: var(--space-8);
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--line);
+    }
+
+    @media (max-width: 760px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+      .cover {
+        max-width: 360px;
+      }
+      .track {
+        grid-template-columns: 1fr;
+        gap: var(--space-2);
+      }
+      .track-actions {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .topbar,
+      .footer,
+      .track-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="box">
-    <div class="name">DARKDMTR</div>
-    <h1>Coming Soon</h1>
-    <div class="line"></div>
-    <p>Mixtape release loading in the dark.</p>
-  </div>
+  <main class="page">
+    <header class="topbar">
+      <div class="brand">DARKDMTR</div>
+      <a class="ig-link" href="https://instagram.com/darkdmtr" target="_blank" rel="noopener noreferrer">Instagram</a>
+    </header>
+
+    <section class="hero">
+      <div class="cover" aria-hidden="true">
+        <!-- Real album art -->
+        <img src="./art/chaos-garden-vol-1.jpg" alt="CHAOS GARDEN, Vol. 1 cover art" />
+      </div>
+
+      <div class="hero-copy">
+        <div class="meta">Mixtape 001 / 10 tracks</div>
+        <h1>CHAOS GARDEN,<br>Vol. 1</h1>
+        <div class="actions">
+          <a class="btn" href="./downloads/chaos-garden-vol-1.zip" download>Download Full Tape</a>
+          <a class="btn alt" href="https://instagram.com/darkdmtr" target="_blank" rel="noopener noreferrer">@darkdmtr</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="track-section" aria-labelledby="tracklist-title">
+      <div class="track-header">
+        <div id="tracklist-title">Stream / Download</div>
+        <div>Direct from darkdmtr.com</div>
+      </div>
+
+      <div class="tracklist">
+        <!-- Update titles + file paths -->
+        <article class="track">
+          <div class="num">01</div>
+          <div class="track-main">
+            <div class="track-title">Track One</div>
+            <div class="audio-shell"><audio controls preload="none" src="./tracks/01-track-one.mp3"></audio></div>
+          </div>
+          <div class="track-actions">
+            <a class="track-link" href="./tracks/01-track-one.mp3">Play file</a>
+            <a class="track-link" href="./tracks/01-track-one.mp3" download>Download</a>
+          </div>
+        </article>
+
+        <article class="track">
+          <div class="num">02</div>
+          <div class="track-main">
+            <div class="track-title">Track Two</div>
+            <div class="audio-shell"><audio controls preload="none" src="./tracks/02-track-two.mp3"></audio></div>
+          </div>
+          <div class="track-actions">
+            <a class="track-link" href="./tracks/02-track-two.mp3">Play file</a>
+            <a class="track-link" href="./tracks/02-track-two.mp3" download>Download</a>
+          </div>
+        </article>
+
+        <article class="track">
+          <div class="num">03</div>
+          <div class="track-main">
+            <div class="track-title">Track Three</div>
+            <div class="audio-shell"><audio controls preload="none" src="./tracks/03-track-three.mp3"></audio></div>
+          </div>
+          <div class="track-actions">
+            <a class="track-link" href="./tracks/03-track-three.mp3">Play file</a>
+            <a class="track-link" href="./tracks/03-track-three.mp3" download>Download</a>
+          </div>
+        </article>
+
+        <article class="track">
+          <div class="num">04</div>
+          <div class="track-main">
+            <div class="track-title">Track Four</div>
+            <div class="audio-shell"><audio controls preload="none" src="./tracks/04-track-four.mp3"></audio></div>
+          </div>
+          <div class="track-actions">
+            <a class="track-link" href="./tracks/04-track-four.mp3">Play file</a>
+            <a class="track-link" href="./tracks/04-track-four.mp3" download>Download</a>
+          </div>
+        </article>
+
+        <article class="track">
+          <div class="num">05</div>
+          <div class="track-main">
+            <div class="track-title">Track Five</div>
+            <div class="audio-shell"><audio controls preload="none" src="./tracks/05-track-five.mp3"></audio></div>
+          </div>
+          <div class="track-actions">
+            <a class="track-link" href="./tracks/05-track-five.mp3">Play file</a>
+            <a class="track-link" href="./tracks/05-track-five.mp3" download>Download</a>
+          </div>
+        </article>
+
+        <article class="track">
+          <div class="num">06</div>
+          <div class="track-main">
+            <div class="track-title">Track Six</div>
+            <div class="audio-shell"><audio controls preload="none" src="./tracks/06-track-six.mp3"></audio></div>
+          </div>
+          <div class="track-actions">
+            <a class="track-link" href="./tracks/06-track-six.mp3">Play file</a>
+            <a class="track-link" href="./tracks/06-track-six.mp3" download>Download</a>
+          </div>
+        </article>
+
+        <article class="track">
+          <div class="num">07</div>
+          <div class="track-main">
+            <div class="track-title">Track Seven</div>
+            <div class="audio-shell"><audio controls preload="none" src="./tracks/07-track-seven.mp3"></audio></div>
+          </div>
+          <div class="track-actions">
+            <a class="track-link" href="./tracks/07-track-seven.mp3">Play file</a>
+            <a class="track-link" href="./tracks/07-track-seven.mp3" download>Download</a>
+          </div>
+        </article>
+
+        <article class="track">
+          <div class="num">08</div>
+          <div class="track-main">
+            <div class="track-title">Track Eight</div>
+            <div class="audio-shell"><audio controls preload="none" src="./tracks/08-track-eight.mp3"></audio></div>
+          </div>
+          <div class="track-actions">
+            <a class="track-link" href="./tracks/08-track-eight.mp3">Play file</a>
+            <a class="track-link" href="./tracks/08-track-eight.mp3" download>Download</a>
+          </div>
+        </article>
+
+        <article class="track">
+          <div class="num">09</div>
+          <div class="track-main">
+            <div class="track-title">Track Nine</div>
+            <div class="audio-shell"><audio controls preload="none" src="./tracks/09-track-nine.mp3"></audio></div>
+          </div>
+          <div class="track-actions">
+            <a class="track-link" href="./tracks/09-track-nine.mp3">Play file</a>
+            <a class="track-link" href="./tracks/09-track-nine.mp3" download>Download</a>
+          </div>
+        </article>
+
+        <article class="track">
+          <div class="num">10</div>
+          <div class="track-main">
+            <div class="track-title">Track Ten</div>
+            <div class="audio-shell"><audio controls preload="none" src="./tracks/10-track-ten.mp3"></audio></div>
+          </div>
+          <div class="track-actions">
+            <a class="track-link" href="./tracks/10-track-ten.mp3">Play file</a>
+            <a class="track-link" href="./tracks/10-track-ten.mp3" download>Download</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div>@darkdmtr</div>
+      <div>Rights concerns: DM @darkdmtr on Instagram</div>
+      <a class="ig-link" href="https://instagram.com/darkdmtr" target="_blank" rel="noopener noreferrer">Instagram</a>
+    </footer>
+  </main>
 </body>
 </html>
