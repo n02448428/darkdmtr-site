@@ -109,22 +109,6 @@
       display: block;
     }
 
-    .cover-fallback {
-      height: 100%;
-      padding: var(--space-4);
-      display: flex;
-      align-items: end;
-    }
-
-    .cover-text {
-      font-size: clamp(28px, 6vw, 48px);
-      line-height: 0.88;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      max-width: 5ch;
-    }
-
     .hero-copy {
       display: grid;
       gap: var(--space-4);
@@ -288,7 +272,6 @@
 
     <section class="hero">
       <div class="cover" aria-hidden="true">
-        <!-- Real album art -->
         <img src="./art/chaos-garden-vol-1.jpg" alt="CHAOS GARDEN, Vol. 1 cover art" />
       </div>
 
@@ -309,124 +292,143 @@
       </div>
 
       <div class="tracklist">
-        <!-- Update titles + file paths -->
         <article class="track">
           <div class="num">01</div>
           <div class="track-main">
-            <div class="track-title">Track One</div>
-            <div class="audio-shell"><audio controls preload="none" src="./tracks/01-track-one.mp3"></audio></div>
+            <div class="track-title">MARS</div>
+            <div class="audio-shell">
+              <audio controls preload="none" src="./tracks/01-darkdmtr-mars.mp3"></audio>
+            </div>
           </div>
           <div class="track-actions">
-            <a class="track-link" href="./tracks/01-track-one.mp3">Play file</a>
-            <a class="track-link" href="./tracks/01-track-one.mp3" download>Download</a>
+            <a class="track-link" href="./tracks/01-darkdmtr-mars.mp3">Play file</a>
+            <a class="track-link" href="./tracks/01-darkdmtr-mars.mp3" download>Download</a>
           </div>
         </article>
 
         <article class="track">
           <div class="num">02</div>
           <div class="track-main">
-            <div class="track-title">Track Two</div>
-            <div class="audio-shell"><audio controls preload="none" src="./tracks/02-track-two.mp3"></audio></div>
+            <div class="track-title">Death Dream</div>
+            <div class="audio-shell">
+              <audio controls preload="none" src="./tracks/02-darkdmtr-death-dream.mp3"></audio>
+            </div>
           </div>
           <div class="track-actions">
-            <a class="track-link" href="./tracks/02-track-two.mp3">Play file</a>
-            <a class="track-link" href="./tracks/02-track-two.mp3" download>Download</a>
+            <a class="track-link" href="./tracks/02-darkdmtr-death-dream.mp3">Play file</a>
+            <a class="track-link" href="./tracks/02-darkdmtr-death-dream.mp3" download>Download</a>
           </div>
         </article>
 
         <article class="track">
           <div class="num">03</div>
           <div class="track-main">
-            <div class="track-title">Track Three</div>
-            <div class="audio-shell"><audio controls preload="none" src="./tracks/03-track-three.mp3"></audio></div>
+            <div class="track-title">Poor Boi 2 [Freestyle]</div>
+            <div class="audio-shell">
+              <audio controls preload="none" src="./tracks/03-darkdmtr-poor-boi-2-freestyle.mp3"></audio>
+            </div>
           </div>
           <div class="track-actions">
-            <a class="track-link" href="./tracks/03-track-three.mp3">Play file</a>
-            <a class="track-link" href="./tracks/03-track-three.mp3" download>Download</a>
+            <a class="track-link" href="./tracks/03-darkdmtr-poor-boi-2-freestyle.mp3">Play file</a>
+            <a class="track-link" href="./tracks/03-darkdmtr-poor-boi-2-freestyle.mp3" download>Download</a>
           </div>
         </article>
 
         <article class="track">
           <div class="num">04</div>
           <div class="track-main">
-            <div class="track-title">Track Four</div>
-            <div class="audio-shell"><audio controls preload="none" src="./tracks/04-track-four.mp3"></audio></div>
+            <div class="track-title">mask//off</div>
+            <div class="audio-shell">
+              <audio controls preload="none" src="./tracks/04-darkdmtr-mask-off.mp3"></audio>
+            </div>
           </div>
           <div class="track-actions">
-            <a class="track-link" href="./tracks/04-track-four.mp3">Play file</a>
-            <a class="track-link" href="./tracks/04-track-four.mp3" download>Download</a>
+            <a class="track-link" href="./tracks/04-darkdmtr-mask-off.mp3">Play file</a>
+            <a class="track-link" href="./tracks/04-darkdmtr-mask-off.mp3" download>Download</a>
           </div>
         </article>
 
         <article class="track">
           <div class="num">05</div>
           <div class="track-main">
-            <div class="track-title">Track Five</div>
-            <div class="audio-shell"><audio controls preload="none" src="./tracks/05-track-five.mp3"></audio></div>
+            <div class="track-title">z b l a d e</div>
+            <div class="audio-shell">
+              <audio controls preload="none" src="./tracks/05-darkdmtr-z-blade.mp3"></audio>
+            </div>
           </div>
           <div class="track-actions">
-            <a class="track-link" href="./tracks/05-track-five.mp3">Play file</a>
-            <a class="track-link" href="./tracks/05-track-five.mp3" download>Download</a>
+            <a class="track-link" href="./tracks/05-darkdmtr-z-blade.mp3">Play file</a>
+            <a class="track-link" href="./tracks/05-darkdmtr-z-blade.mp3" download>Download</a>
           </div>
         </article>
 
         <article class="track">
           <div class="num">06</div>
           <div class="track-main">
-            <div class="track-title">Track Six</div>
-            <div class="audio-shell"><audio controls preload="none" src="./tracks/06-track-six.mp3"></audio></div>
+            <div class="track-title">333txts</div>
+            <div class="audio-shell">
+              <audio controls preload="none" src="./tracks/06-darkdmtr-333txts.mp3"></audio>
+            </div>
           </div>
           <div class="track-actions">
-            <a class="track-link" href="./tracks/06-track-six.mp3">Play file</a>
-            <a class="track-link" href="./tracks/06-track-six.mp3" download>Download</a>
+            <a class="track-link" href="./tracks/06-darkdmtr-333txts.mp3">Play file</a>
+            <a class="track-link" href="./tracks/06-darkdmtr-333txts.mp3" download>Download</a>
           </div>
         </article>
 
         <article class="track">
           <div class="num">07</div>
           <div class="track-main">
-            <div class="track-title">Track Seven</div>
-            <div class="audio-shell"><audio controls preload="none" src="./tracks/07-track-seven.mp3"></audio></div>
+            <div class="track-title">UPLiFT</div>
+            <div class="audio-shell">
+              <audio controls preload="none" src="./tracks/07-darkdmtr-uplift.mp3"></audio>
+            </div>
           </div>
           <div class="track-actions">
-            <a class="track-link" href="./tracks/07-track-seven.mp3">Play file</a>
-            <a class="track-link" href="./tracks/07-track-seven.mp3" download>Download</a>
+            <a class="track-link" href="./tracks/07-darkdmtr-uplift.mp3">Play file</a>
+            <a class="track-link" href="./tracks/07-darkdmtr-uplift.mp3" download>Download</a>
           </div>
         </article>
 
         <article class="track">
           <div class="num">08</div>
           <div class="track-main">
-            <div class="track-title">Track Eight</div>
-            <div class="audio-shell"><audio controls preload="none" src="./tracks/08-track-eight.mp3"></audio></div>
+            <div class="track-title">bathe me</div>
+            <div class="audio-shell">
+              <audio controls preload="none" src="./tracks/08-darkdmtr-bathe-me.mp3"></audio>
+            </div>
           </div>
           <div class="track-actions">
-            <a class="track-link" href="./tracks/08-track-eight.mp3">Play file</a>
-            <a class="track-link" href="./tracks/08-track-eight.mp3" download>Download</a>
+            <a class="track-link" href="./tracks/08-darkdmtr-bathe-me.mp3">Play file</a>
+            <a class="track-link" href="./tracks/08-darkdmtr-bathe-me.mp3" download>Download</a>
           </div>
         </article>
 
         <article class="track">
           <div class="num">09</div>
           <div class="track-main">
-            <div class="track-title">Track Nine</div>
-            <div class="audio-shell"><audio controls preload="none" src="./tracks/09-track-nine.mp3"></audio></div>
+            <div class="track-title">JANUS FACE</div>
+            <div class="audio-shell">
+              <audio controls preload="none" src="./tracks/09-darkdmtr-janus-face.mp3"></audio>
+            </div>
           </div>
           <div class="track-actions">
-            <a class="track-link" href="./tracks/09-track-nine.mp3">Play file</a>
-            <a class="track-link" href="./tracks/09-track-nine.mp3" download>Download</a>
+            <a class="track-link" href="./tracks/09-darkdmtr-janus-face.mp3">Play file</a>
+            <a class="track-link" href="./tracks/09-darkdmtr-janus-face.mp3" download>Download</a>
           </div>
         </article>
 
         <article class="track">
           <div class="num">10</div>
           <div class="track-main">
-            <div class="track-title">Track Ten</div>
-            <div class="audio-shell"><audio controls preload="none" src="./tracks/10-track-ten.mp3"></audio></div>
+            <div class="track-title">Bonus: Damn Rules</div>
+            <div class="audio-shell">
+              <audio controls preload="none" src="./tracks/10-darkdmtr-bonus-damn-rules.mp3"></audio>
+            </div>
           </div>
           <div class="track-actions">
-            <a class="track-link" href="./tracks/10-track-ten.mp3">Play file</a>
-            <a class="track-link" href="./tracks/10-track-ten.mp3" download>Download</a>
+            <a class="track-link" href="./tracks/10-darkdmtr-bonus-damn-rules.mp3">Play file</a>
+            <a class="track-link" href="./tracks/10-darkdmtr-bonus-damn-rules.mp3" download>Download</a>
           </div>
         </article>
       </div>
