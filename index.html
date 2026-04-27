@@ -317,7 +317,7 @@ a:focus-visible {
         <article class="track">
           <div class="num">01</div>
           <div class="track-main">
-            <div class="track-title">MARS</div>
+            <div class="track-title">MARS <span class="play-count" data-play-count="track_01" style="color: var(--faint); font-size: 0.85em; margin-left: 8px;">(— plays)</span></div>
             <div class="audio-shell">
               <audio controls preload="none" src="./tracks/01-darkdmtr-mars.mp3"></audio>
             </div>
@@ -331,7 +331,7 @@ a:focus-visible {
         <article class="track">
           <div class="num">02</div>
           <div class="track-main">
-            <div class="track-title">Death Dream</div>
+            <div class="track-title">Death Dream <span class="play-count" data-play-count="track_02" style="color: var(--faint); font-size: 0.85em; margin-left: 8px;">(— plays)</span></div>
             <div class="audio-shell">
               <audio controls preload="none" src="./tracks/02-darkdmtr-death-dream.mp3"></audio>
             </div>
@@ -345,7 +345,7 @@ a:focus-visible {
         <article class="track">
           <div class="num">03</div>
           <div class="track-main">
-            <div class="track-title">Poor Boi 2 [Freestyle]</div>
+            <div class="track-title">Poor Boi 2 [Freestyle] <span class="play-count" data-play-count="track_03" style="color: var(--faint); font-size: 0.85em; margin-left: 8px;">(— plays)</span></div>
             <div class="audio-shell">
               <audio controls preload="none" src="./tracks/03-darkdmtr-poor-boi-2-freestyle.mp3"></audio>
             </div>
@@ -359,7 +359,7 @@ a:focus-visible {
         <article class="track">
           <div class="num">04</div>
           <div class="track-main">
-            <div class="track-title">mask//off</div>
+            <div class="track-title">mask//off <span class="play-count" data-play-count="track_04" style="color: var(--faint); font-size: 0.85em; margin-left: 8px;">(— plays)</span></div>
             <div class="audio-shell">
               <audio controls preload="none" src="./tracks/04-darkdmtr-mask-off.mp3"></audio>
             </div>
@@ -373,7 +373,7 @@ a:focus-visible {
         <article class="track">
           <div class="num">05</div>
           <div class="track-main">
-            <div class="track-title">z b l a d e</div>
+            <div class="track-title">z b l a d e <span class="play-count" data-play-count="track_05" style="color: var(--faint); font-size: 0.85em; margin-left: 8px;">(— plays)</span></div>
             <div class="audio-shell">
               <audio controls preload="none" src="./tracks/05-darkdmtr-z-blade.mp3"></audio>
             </div>
@@ -387,7 +387,7 @@ a:focus-visible {
         <article class="track">
           <div class="num">06</div>
           <div class="track-main">
-            <div class="track-title">333txts</div>
+            <div class="track-title">333txts <span class="play-count" data-play-count="track_06" style="color: var(--faint); font-size: 0.85em; margin-left: 8px;">(— plays)</span></div>
             <div class="audio-shell">
               <audio controls preload="none" src="./tracks/06-darkdmtr-333txts.mp3"></audio>
             </div>
@@ -401,7 +401,7 @@ a:focus-visible {
         <article class="track">
           <div class="num">07</div>
           <div class="track-main">
-            <div class="track-title">UPLiFT</div>
+            <div class="track-title">UPLiFT <span class="play-count" data-play-count="track_07" style="color: var(--faint); font-size: 0.85em; margin-left: 8px;">(— plays)</span></div>
             <div class="audio-shell">
               <audio controls preload="none" src="./tracks/07-darkdmtr-uplift.mp3"></audio>
             </div>
@@ -415,7 +415,7 @@ a:focus-visible {
         <article class="track">
           <div class="num">08</div>
           <div class="track-main">
-            <div class="track-title">bathe me</div>
+            <div class="track-title">bathe me <span class="play-count" data-play-count="track_08" style="color: var(--faint); font-size: 0.85em; margin-left: 8px;">(— plays)</span></div>
             <div class="audio-shell">
               <audio controls preload="none" src="./tracks/08-darkdmtr-bathe-me.mp3"></audio>
             </div>
@@ -429,7 +429,7 @@ a:focus-visible {
         <article class="track">
           <div class="num">09</div>
           <div class="track-main">
-            <div class="track-title">JANUS FACE</div>
+            <div class="track-title">JANUS FACE <span class="play-count" data-play-count="track_09" style="color: var(--faint); font-size: 0.85em; margin-left: 8px;">(— plays)</span></div>
             <div class="audio-shell">
               <audio controls preload="none" src="./tracks/09-darkdmtr-janus-face.mp3"></audio>
             </div>
@@ -443,7 +443,7 @@ a:focus-visible {
         <article class="track">
           <div class="num">10</div>
           <div class="track-main">
-            <div class="track-title">Bonus: Damn Rules</div>
+            <div class="track-title">Bonus: Damn Rules <span class="play-count" data-play-count="track_10" style="color: var(--faint); font-size: 0.85em; margin-left: 8px;">(— plays)</span></div>
             <div class="audio-shell">
               <audio controls preload="none" src="./tracks/10-darkdmtr-bonus-damn-rules.mp3"></audio>
             </div>
@@ -468,5 +468,89 @@ a:focus-visible {
   <a class="ig-link" href="https://instagram.com/darkdmtr" target="_blank" rel="noopener noreferrer">Instagram</a>
 </footer>
   </main>
+
+<script>
+// DARKDMTR MIXTAPE PLAY TRACKING
+const SUPABASE_URL = 'https://udiqhlymaoqyhbbpvdiw.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkaXFobHltYW9xeWhiYnB2ZGl3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczMDE4NjUsImV4cCI6MjA5Mjg3Nzg2NX0.iowFxdCZA6aw2SdAlxhIIDOCS3_-qAMZV2_zQ9sousg';
+
+// Session & Listener IDs
+let sessionId = sessionStorage.getItem('dmtr_session');
+if (!sessionId) {
+  sessionId = 'sess_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+  sessionStorage.setItem('dmtr_session', sessionId);
+}
+let listenerId = localStorage.getItem('dmtr_listener');
+if (!listenerId) {
+  listenerId = 'l_' + Date.now() + '_' + Math.random().toString(36).substr(2, 11);
+  localStorage.setItem('dmtr_listener', listenerId);
+}
+
+const referrer = document.referrer || 'direct';
+const userAgent = navigator.userAgent;
+const playedTracks = new Set();
+
+// Fetch and display play counts on load
+async function loadPlayCounts() {
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/track_counts?select=track_id,plays`, {
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+      }
+    });
+    const data = await res.json();
+    data.forEach(row => {
+      const el = document.querySelector(`[data-play-count="${row.track_id}"]`);
+      if (el) el.textContent = row.plays;
+    });
+  } catch (err) {
+    console.error('Failed to load play counts:', err);
+  }
+}
+
+// Log a play event
+async function logPlay(trackId) {
+  if (playedTracks.has(trackId)) return;
+  playedTracks.add(trackId);
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/log_play`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        p_track_id: trackId,
+        p_session_id: sessionId,
+        p_listener_id: listenerId,
+        p_referrer: referrer,
+        p_user_agent: userAgent
+      })
+    });
+    const newCount = await res.json();
+    const el = document.querySelector(`[data-play-count="${trackId}"]`);
+    if (el && typeof newCount === 'number') el.textContent = newCount;
+  } catch (err) {
+    console.error('Log play failed:', err);
+  }
+}
+
+// Attach listeners to audio elements
+document.querySelectorAll('audio').forEach((audio, idx) => {
+  const trackId = `track_${String(idx + 1).padStart(2, '0')}`;
+  let hasPlayed = false;
+  audio.addEventListener('play', () => {
+    if (!hasPlayed) {
+      hasPlayed = true;
+      logPlay(trackId);
+    }
+  });
+});
+
+// Init
+loadPlayCounts();
+</script>
 </body>
 </html>
