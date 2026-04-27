@@ -537,6 +537,41 @@ async function logPlay(trackId) {
   }
 }
 
+// Helper: determine position bucket
+function getPositionBucket(position, duration) {
+  if (!duration || duration === 0) return 'start';
+  const percent = (position / duration) * 100;
+  if (percent < 25) return 'start';
+  if (percent < 50) return 'quarter';
+  if (percent < 75) return 'half';
+  if (percent < 95) return 'three_quarter';
+  return 'complete';
+}
+
+// Log any event (pause, seek, ended, etc)
+async function logEvent(trackId, eventType, positionSeconds, positionBucket) {
+  try {
+    await fetch(`${SUPABASE_URL}/rest/v1/rpc/log_event`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        p_track_id: trackId,
+        p_event_type: eventType,
+        p_session_id: sessionId,
+        p_listener_id: listenerId,
+        p_position_seconds: positionSeconds || null,
+        p_position_bucket: positionBucket || null
+      })
+    });
+  } catch (err) {
+    console.error(`Log event (${eventType}) failed:`, err);
+  }
+}
+
 // Attach listeners to audio elements
 document.querySelectorAll('audio').forEach((audio, idx) => {
   const trackId = `track_${String(idx + 1).padStart(2, '0')}`;
@@ -547,9 +582,42 @@ document.querySelectorAll('audio').forEach((audio, idx) => {
       logPlay(trackId);
     }
   });
+
+    // Advanced tracking: pause, ended, seek
+  audio.addEventListener('pause', () => {
+    const position = audio.currentTime;
+    const duration = audio.duration;
+    const positionBucket = getPositionBucket(position, duration);
+    logEvent(trackId, 'pause', position, positionBucket);
+  });
+
+  audio.addEventListener('ended', () => {
+    const duration = audio.duration;
+    logEvent(trackId, 'ended', duration, 'complete');
+  });
+
+  audio.addEventListener('seeked', () => {
+    const position = audio.currentTime;
+    const duration = audio.duration;
+    const positionBucket = getPositionBucket(position, duration);
+    logEvent(trackId, 'seek', position, positionBucket);
+  });
 });
 
-// Init
+async (
+  // Track download button clicks
+document.querySelectorAll('a[href*=".mp3"]').forEach((link, idx) => {
+  const trackId = `track_${String(idx + 1).padStart(2, '0')}`;
+  link.addEventListener('click', (e) => {
+    // Only track DOWNLOAD links, not PLAY FILE links
+    if (link.textContent.trim().toUpperCase().includes('DOWNLOAD')) {
+      logEvent(trackId, 'download_click', null, null);
+    }
+  });
+});
+) => {
+  // Init
+}
 loadPlayCounts();
 </script>
 </body>
