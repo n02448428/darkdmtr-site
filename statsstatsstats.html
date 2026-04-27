@@ -1,4 +1,4 @@
-statsstatsstats.html<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -63,9 +63,14 @@ statsstatsstats.html<!DOCTYPE html>
       align-items: center;
       padding: 12px 0;
       border-bottom: 1px solid #2a2a2a;
+      cursor: pointer;
+      transition: background 0.2s;
     }
     .track-item:last-child {
       border-bottom: none;
+    }
+    .track-item:hover {
+      background: #222;
     }
     .track-name {
       font-size: 14px;
@@ -96,6 +101,25 @@ statsstatsstats.html<!DOCTYPE html>
       gap: 16px;
       margin-bottom: 16px;
     }
+    .back-button {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 8px 16px;
+      background: #2a2a2a;
+      border: 1px solid #3a3a3a;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 14px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .back-button:hover {
+      background: #333;
+    }
+    #track-detail {
+      display: none;
+    }
     @media (max-width: 480px) {
       .stat-grid {
         grid-template-columns: 1fr;
@@ -109,7 +133,7 @@ statsstatsstats.html<!DOCTYPE html>
     
     <div class="loading" id="loading">Loading stats...</div>
     
-    <div id="stats" style="display: none;">
+    <div id="overview" style="display: none;">
       <div class="stat-grid">
         <div class="stat-card">
           <h2>Total Plays</h2>
@@ -141,6 +165,45 @@ statsstatsstats.html<!DOCTYPE html>
           <h2>Top Referrer</h2>
           <div class="stat-number" style="font-size: 14px;" id="top-referrer">—</div>
         </div>
+      </div>
+    </div>
+
+    <!-- Track Detail View -->
+    <div id="track-detail">
+      <button class="back-button" onclick="showOverview()">← Back to Overview</button>
+      <h1 id="detail-track-name"></h1>
+      
+      <div class="stat-grid">
+        <div class="stat-card">
+          <h2>Total Plays</h2>
+          <div class="stat-number" id="detail-plays">—</div>
+        </div>
+        <div class="stat-card">
+          <h2>Unique Listeners</h2>
+          <div class="stat-number" id="detail-listeners">—</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <h2>Completion Rate</h2>
+        <div class="stat-number" id="detail-completion">—%</div>
+        <div class="stat-label">Listeners who finished the track</div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <h2>Pause Events</h2>
+          <div class="stat-number" id="detail-pauses">—</div>
+        </div>
+        <div class="stat-card">
+          <h2>Seek Events</h2>
+          <div class="stat-number" id="detail-seeks">—</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <h2>Downloads</h2>
+        <div class="stat-number" id="detail-downloads">—</div>
       </div>
     </div>
 
@@ -223,16 +286,71 @@ statsstatsstats.html<!DOCTYPE html>
             <span class="track-plays">${track.plays}</span>
           `;
           trackList.appendChild(li);
+          li.onclick = () => showTrackDetail(track.track_id);
         });
 
         // Show stats, hide loading
         document.getElementById('loading').style.display = 'none';
-        document.getElementById('stats').style.display = 'block';
+        document.getElementById('overview').style.display = 'block';
 
       } catch (err) {
         console.error('Failed to fetch stats:', err);
         document.getElementById('loading').textContent = 'Failed to load stats';
       }
+    }
+
+    // Show track detail view
+    async function showTrackDetail(trackId) {
+      document.getElementById('overview').style.display = 'none';
+      document.getElementById('track-detail').style.display = 'block';
+      document.getElementById('detail-track-name').textContent = trackNames[trackId] || trackId;
+      
+      try {
+        // Fetch track-specific events
+        const eventsRes = await fetch(`${SUPABASE_URL}/rest/v1/track_events?track_id=eq.${trackId}&select=*`, {
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+          }
+        });
+        const events = await eventsRes.json();
+
+        // Fetch track count
+        const countRes = await fetch(`${SUPABASE_URL}/rest/v1/track_counts?track_id=eq.${trackId}&select=*`, {
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+          }
+        });
+        const counts = await countRes.json();
+        const totalPlays = counts[0]?.plays || 0;
+
+        // Calculate stats
+        const uniqueListeners = new Set(events.map(e => e.listener_id)).size;
+        const completedPlays = events.filter(e => e.event_type === 'ended').length;
+        const startedPlays = events.filter(e => e.event_type === 'play').length;
+        const completionRate = startedPlays > 0 ? Math.round((completedPlays / startedPlays) * 100) : 0;
+        const pauses = events.filter(e => e.event_type === 'pause').length;
+        const seeks = events.filter(e => e.event_type === 'seek').length;
+        const downloads = events.filter(e => e.event_type === 'download_click').length;
+
+        // Update UI
+        document.getElementById('detail-plays').textContent = totalPlays;
+        document.getElementById('detail-listeners').textContent = uniqueListeners;
+        document.getElementById('detail-completion').textContent = completionRate + '%';
+        document.getElementById('detail-pauses').textContent = pauses;
+        document.getElementById('detail-seeks').textContent = seeks;
+        document.getElementById('detail-downloads').textContent = downloads;
+
+      } catch (err) {
+        console.error('Failed to fetch track detail:', err);
+      }
+    }
+
+    // Show overview
+    function showOverview() {
+      document.getElementById('overview').style.display = 'block';
+      document.getElementById('track-detail').style.display = 'none';
     }
 
     // Initial load
