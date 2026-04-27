@@ -1,0 +1,245 @@
+statsstatsstats.html<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DARKDMTR Stats</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0a0a0a;
+      color: #e0e0e0;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 30px;
+      color: #fff;
+      font-weight: 600;
+    }
+    .stat-card {
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .stat-card h2 {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #888;
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+    .stat-number {
+      font-size: 32px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: 13px;
+      color: #666;
+    }
+    .track-list {
+      list-style: none;
+    }
+    .track-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid #2a2a2a;
+    }
+    .track-item:last-child {
+      border-bottom: none;
+    }
+    .track-name {
+      font-size: 14px;
+      color: #e0e0e0;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .track-plays {
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+    }
+    .loading {
+      text-align: center;
+      padding: 40px 20px;
+      color: #666;
+      font-size: 14px;
+    }
+    .refresh-note {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 12px;
+      color: #555;
+    }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    @media (max-width: 480px) {
+      .stat-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Darkdmtr — Stats</h1>
+    
+    <div class="loading" id="loading">Loading stats...</div>
+    
+    <div id="stats" style="display: none;">
+      <div class="stat-grid">
+        <div class="stat-card">
+          <h2>Total Plays</h2>
+          <div class="stat-number" id="total-plays">—</div>
+        </div>
+        <div class="stat-card">
+          <h2>Unique Sessions</h2>
+          <div class="stat-number" id="unique-sessions">—</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <h2>Plays per Track</h2>
+        <ul class="track-list" id="track-list"></ul>
+      </div>
+
+      <div class="stat-card">
+        <h2>Completion Rate</h2>
+        <div class="stat-number" id="completion-rate">—%</div>
+        <div class="stat-label">Tracks finished vs started</div>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <h2>Downloads</h2>
+          <div class="stat-number" id="downloads">—</div>
+        </div>
+        <div class="stat-card">
+          <h2>Top Referrer</h2>
+          <div class="stat-number" style="font-size: 14px;" id="top-referrer">—</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="refresh-note">Auto-refreshes every 30 seconds</div>
+  </div>
+
+  <script>
+    const SUPABASE_URL = 'https://udiqhlymaoqyhbbpvdiw.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkaXFobHltYW9xeWhiYnB2ZGl3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczMDE4NjUsImV4cCI6MjA5Mjg3Nzg2NX0.iowFxdCZA6aw2SdAlxhIIDOCS3_-qAMZV2_zQ9sousg';
+
+    const trackNames = {
+      track_01: 'MARS',
+      track_02: 'Death Dream',
+      track_03: 'Poor Boi 2',
+      track_04: 'mask//off',
+      track_05: 'z b l a d e',
+      track_06: '333txts',
+      track_07: 'UPLiFT',
+      track_08: 'bathe me',
+      track_09: 'JANUS FACE',
+      track_10: 'Bonus: Damn Rules'
+    };
+
+    async function fetchStats() {
+      try {
+        // Fetch track counts
+        const countsRes = await fetch(`${SUPABASE_URL}/rest/v1/track_counts?select=*`, {
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+          }
+        });
+        const counts = await countsRes.json();
+
+        // Fetch events for deeper stats
+        const eventsRes = await fetch(`${SUPABASE_URL}/rest/v1/track_events?select=*`, {
+          headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+          }
+        });
+        const events = await eventsRes.json();
+
+        // Calculate stats
+        const totalPlays = counts.reduce((sum, t) => sum + t.plays, 0);
+        const uniqueSessions = new Set(events.map(e => e.session_id)).size;
+        const completedTracks = events.filter(e => e.event_type === 'ended').length;
+        const startedTracks = events.filter(e => e.event_type === 'play').length;
+        const completionRate = startedTracks > 0 ? Math.round((completedTracks / startedTracks) * 100) : 0;
+        const downloads = events.filter(e => e.event_type === 'download_click').length;
+
+        // Top referrer
+        const referrers = {};
+        events.forEach(e => {
+          if (e.referrer) {
+            const ref = e.referrer.includes('instagram') ? 'Instagram' : 
+                       e.referrer.includes('twitter') || e.referrer.includes('x.com') ? 'X' : 
+                       e.referrer === 'direct' ? 'Direct' : 'Other';
+            referrers[ref] = (referrers[ref] || 0) + 1;
+          }
+        });
+        const topReferrer = Object.keys(referrers).length > 0 ? 
+          Object.entries(referrers).sort((a, b) => b[1] - a[1])[0][0] : 'None yet';
+
+        // Update UI
+        document.getElementById('total-plays').textContent = totalPlays;
+        document.getElementById('unique-sessions').textContent = uniqueSessions;
+        document.getElementById('completion-rate').textContent = completionRate + '%';
+        document.getElementById('downloads').textContent = downloads;
+        document.getElementById('top-referrer').textContent = topReferrer;
+
+        // Render track list
+        const trackList = document.getElementById('track-list');
+        trackList.innerHTML = '';
+        counts.sort((a, b) => b.plays - a.plays).forEach(track => {
+          const li = document.createElement('li');
+          li.className = 'track-item';
+          li.innerHTML = `
+            <span class="track-name">${trackNames[track.track_id] || track.track_id}</span>
+            <span class="track-plays">${track.plays}</span>
+          `;
+          trackList.appendChild(li);
+        });
+
+        // Show stats, hide loading
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('stats').style.display = 'block';
+
+      } catch (err) {
+        console.error('Failed to fetch stats:', err);
+        document.getElementById('loading').textContent = 'Failed to load stats';
+      }
+    }
+
+    // Initial load
+    fetchStats();
+
+    // Auto-refresh every 30 seconds
+    setInterval(fetchStats, 30000);
+  </script>
+</body>
+</html>
