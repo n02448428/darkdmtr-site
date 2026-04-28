@@ -609,21 +609,7 @@ document.querySelectorAll('audio').forEach((audio, idx) => {
   });
 });
 
-async (
-  // Track download button clicks
-document.querySelectorAll('a[href*=".mp3"]').forEach((link, idx) => {
-  const trackId = `track_${String(idx + 1).padStart(2, '0')}`;
-  link.addEventListener('click', (e) => {
-    // Only track DOWNLOAD links, not PLAY FILE links
-    if (link.textContent.trim().toUpperCase().includes('DOWNLOAD')) {
-      logEvent(trackId, 'download_click', null, null);
-    }
-  });
-});
-) => {
-  // Init
-}
 loadPlayCounts();
 </script>
-</body>
+<script src="tracking.js"></script> </body>
 </html>
