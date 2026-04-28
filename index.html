@@ -331,7 +331,8 @@ a:focus-visible {
         <article class="track">
           <div class="num">02</div>
           <div class="track-main">
-            <div class="track-title">Death Dream <span class="play-count" data-play-count="track_02" style="color: var(--faint); font-size: 0.85em; margin-left: 8px;">(— plays)</span></div>
+            <div class="track-title">Death Dream <span class="play-count" data-play-count="track_02" style="color: var(--faint); font-size: 0.85em; margin-left: 8px;">494
+  </span></div>
             <div class="audio-shell">
               <audio controls preload="none" src="./tracks/02-darkdmtr-death-dream.mp3"></audio>
             </div>
@@ -472,6 +473,7 @@ a:focus-visible {
 <script>
 // DARKDMTR MIXTAPE PLAY TRACKING
 const SUPABASE_URL = 'https://udiqhlymaoqyhbbpvdiw.supabase.co';
+  
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVkaXFobHltYW9xeWhiYnB2ZGl3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczMDE4NjUsImV4cCI6MjA5Mjg3Nzg2NX0.iowFxdCZA6aw2SdAlxhIIDOCS3_-qAMZV2_zQ9sousg';
 
 // Session & Listener IDs
@@ -493,7 +495,8 @@ const playedTracks = new Set();
 // Fetch and display play counts on load
 async function loadPlayCounts() {
   try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/track_counts?select=track_id,plays`, {
+    const res = await fetch(`${320
+  }/rest/v1/track_counts?select=track_id,plays`, {
       headers: {
         'apikey': SUPABASE_ANON_KEY,
         'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
